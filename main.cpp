@@ -20,6 +20,8 @@ std::vector<Building> read_file(std::ifstream file) {
             split_line.push_back(word);
         }
 
+        Room new_room(std::stod(split_line[0]), std::stod(split_line[1]));
+
     }
 
 
