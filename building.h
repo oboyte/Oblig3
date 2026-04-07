@@ -21,9 +21,11 @@ public:
     Building() = default;
     Building(std::string const &id, std::vector<Room> const &room_list);
 
-    double get_area() const; // Få total areal i byggningen.
-    int get_cleaners() const;
+    double get_area(); // Få total areal i byggningen.
+    int get_cleaners();
+    int get_room_amount();
     void insert_room(Room &room);
+    std::string get_ID() const;
 };
 
 #endif // BUILDING_H

@@ -5,32 +5,31 @@ Building::Building(std::string const &id, std::vector<Room> const &room_list) : 
     update_cleaners();
 }
 
+void Building::insert_room(Room &room) {
+    rooms.push_back(room);
+}
+
 void Building::update_area() {
     areal = 0; // Reset area
     for (const auto i : rooms) {
         areal += i.get_area();
     }
 }
-
 void Building::update_cleaners() {
-    int cleaner_criteria1 = 1; // Følger krav1 til antall renholdere: sjekker areal.
-    int cleaner_criteria2 = 0; // Følger krav2 til antall renholdere: sjekker antallrom
+    int cleaner_criteria1 = std::ceil(get_area() / 15); // Følger krav1 til antall renholdere: sjekker areal.
+    int cleaner_criteria2 = std::ceil(rooms.size() / 2 ); // Følger krav2 til antall renholdere: sjekker antallrom
 
-    double areal_copy = get_area();
-    double exponent = std::log10(areal_copy);
-    double mantissa = areal_copy / std::pow(10, exponent);
-
-    cleaner_criteria1 = std::ceil((mantissa * exponent) / 15); // Hver 15ende kvadratmeter skal ha en vasker
-
-    // Krav2:
-    for (const auto i : rooms) {
-        cleaner_criteria2 += 1;
-    }
-
-    // Hvis krav1 > krav2, sett krav1 til amount of cleaners, ellers sett krav2.
-    amount_of_cleaners = (cleaner_criteria1 > cleaner_criteria2) ? cleaner_criteria1 : cleaner_criteria2;
+    // Sett amount of cleaners til største verdi av de to variablene.
+    amount_of_cleaners = std::max(cleaner_criteria1, cleaner_criteria2);
 }
 
-int Building::get_cleaners() const { return amount_of_cleaners; }
-double Building::get_area() const { return areal; }
-
+int Building::get_cleaners() { update_cleaners(); return amount_of_cleaners; }
+double Building::get_area() { update_area(); return areal; }
+int Building::get_room_amount() {
+    int amount = 0;
+    for(auto room : rooms) {
+        amount++;
+    }
+    return amount;
+}
+std::string Building::get_ID() const { return building_id; }
