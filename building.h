@@ -26,6 +26,8 @@ public:
     int get_room_amount();
     void insert_room(Room &room);
     std::string get_ID() const;
+    std::vector<Room> get_rooms();
+
 };
 
 #endif // BUILDING_H

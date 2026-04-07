@@ -12,7 +12,7 @@ void Building::insert_room(Room &room) {
 void Building::update_area() {
     areal = 0; // Reset area
     for (const auto i : rooms) {
-        areal += i.get_area();
+        areal += i.get_area(); // Summer arealene
     }
 }
 void Building::update_cleaners() {
@@ -27,3 +27,4 @@ int Building::get_cleaners() { update_cleaners(); return amount_of_cleaners; }
 double Building::get_area() { update_area(); return areal; }
 int Building::get_room_amount() { return rooms.size(); }
 std::string Building::get_ID() const { return building_id; }
+std::vector<Room> Building::get_rooms() { return rooms; }

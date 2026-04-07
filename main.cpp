@@ -42,9 +42,15 @@ void write_file(std::vector<Building> &buildings) {
         std::string filename = std::format("{}.txt", building.get_ID());
         std::ofstream output_file(filename, std::ios::out);
 
-        output_file << "Number of rooms: " << building.get_room_amount() << '\n'
+        output_file << "Name: " << building.get_ID() << '\n'
+                    << "Number of rooms: " << building.get_room_amount() << '\n'
                     << "Number of cleaners: " << building.get_cleaners() << '\n'
-                    << "Area: " << building.get_area();
+                    << "Total Area: " << building.get_area() << '\n';
+
+        for (auto room : building.get_rooms()) {
+            output_file << "Bredde: " << room.get_width()
+                        << ", Høyde: " << room.get_height() << '\n';
+        }
     }
 }
 
